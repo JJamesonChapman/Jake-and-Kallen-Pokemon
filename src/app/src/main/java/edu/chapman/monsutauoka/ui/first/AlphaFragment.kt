@@ -46,6 +46,9 @@ class AlphaFragment : Fragment() {
         viewModel.steps.observe(viewLifecycleOwner) { stepCount ->
             binding.textSteps.text = stepCount.toString()
         }
+        viewModel.treats.observe(viewLifecycleOwner) { treatCount ->
+            binding.textTreats.text = treatCount.toString()
+        }
     }
 
 
