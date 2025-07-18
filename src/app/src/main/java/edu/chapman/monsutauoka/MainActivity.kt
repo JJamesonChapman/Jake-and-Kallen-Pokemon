@@ -85,6 +85,10 @@ class MainActivity : AppCompatActivity() {
         Log.v(TAG, newStepCount.toString())
     }
 
+    public fun consumeTreat() {
+        stepCounterService.consumeTreat()
+    }
+
     fun getStepCounterService(): StepCounterService {
         return stepCounterService
     }
