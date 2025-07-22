@@ -11,6 +11,7 @@ import edu.chapman.monsutauoka.MainActivity
 import edu.chapman.monsutauoka.databinding.FragmentAlphaBinding
 import edu.chapman.monsutauoka.extensions.TAG
 import edu.chapman.monsutauoka.extensions.applySystemBarPadding
+import edu.chapman.monsutauoka.services.StepCounterService
 
 
 class AlphaFragment : Fragment() {
@@ -44,10 +45,19 @@ class AlphaFragment : Fragment() {
         binding.root.applySystemBarPadding()
 
         viewModel.steps.observe(viewLifecycleOwner) { stepCount ->
-            binding.textSteps.text = stepCount.toString()
+            binding.textSteps.text = "Steps / 100: " + stepCount.toString()
         }
+
         viewModel.treats.observe(viewLifecycleOwner) { treatCount ->
-            binding.textTreats.text = treatCount.toString()
+            binding.textTreats.text = "Treats: " + treatCount.toString()
+        }
+
+        viewModel.mood.observe(viewLifecycleOwner) { moodCount ->
+            binding.textMood.text = "Mood: " + moodCount.toString()
+        }
+
+        binding.buttonTreat.setOnClickListener {
+            viewModel.consumeTreat()
         }
     }
 
