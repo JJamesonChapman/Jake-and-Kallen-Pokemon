@@ -59,6 +59,18 @@ class AlphaFragment : Fragment() {
         binding.buttonTreat.setOnClickListener {
             viewModel.consumeTreat()
         }
+
+        viewModel.isAsleep.observe(viewLifecycleOwner) { asleep ->
+            if (asleep) {
+                binding.textSleepState.text = "Your Pokémon is sleeping..."
+                // Optionally update an image too:
+                // binding.imagePokemon.setImageResource(R.drawable.pokemon_sleeping)
+            } else {
+                binding.textSleepState.text = "Your Pokémon is awake!"
+                // binding.imagePokemon.setImageResource(R.drawable.pokemon_awake)
+            }
+        }
+
     }
 
 

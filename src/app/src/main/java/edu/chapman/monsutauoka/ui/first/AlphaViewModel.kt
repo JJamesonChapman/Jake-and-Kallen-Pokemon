@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import edu.chapman.monsutauoka.services.StepCounterService
 
+import androidx.lifecycle.MutableLiveData
+import java.time.LocalTime
+
 class AlphaViewModel : ViewModel() {
     private var initialized = false
 
@@ -19,6 +22,9 @@ class AlphaViewModel : ViewModel() {
 
     private lateinit var stepService: StepCounterService
 
+    private val _isAsleep = MutableLiveData<Boolean>()
+    val isAsleep: LiveData<Boolean> get() = _isAsleep
+
     fun initialize(service: StepCounterService) {
         if (initialized) {
             throw IllegalStateException("StepViewModel is already initialized")
@@ -30,10 +36,24 @@ class AlphaViewModel : ViewModel() {
         _treats = service.treats.asLiveData()
         _mood = service.mood.asLiveData()
 
+        checkSleepState() // Initialize sleep state
+
         initialized = true
     }
 
     fun consumeTreat() {
         stepService.consumeTreat()
+    }
+
+    private fun checkSleepState() {
+        /*val now = LocalTime.now()
+        val nightStart = LocalTime.of(21, 0) // 9 PM
+        val nightEnd = LocalTime.of(6, 0)    // 6 AM
+        val asleep = now.isAfter(nightStart) || now.isBefore(nightEnd)
+        _isAsleep.value = asleep*/
+        val now = LocalTime.now()
+        val nightStart = LocalTime.of(21, 0) // 9 PM
+        val nightEnd = LocalTime.of(6, 0)    // 6 AM
+        _isAsleep.value = now.isAfter(nightStart) || now.isBefore(nightEnd)
     }
 }
