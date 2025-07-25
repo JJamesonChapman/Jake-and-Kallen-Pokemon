@@ -8,6 +8,10 @@ import edu.chapman.monsutauoka.services.StepCounterService
 import androidx.lifecycle.MutableLiveData
 import java.time.LocalTime
 
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 class AlphaViewModel : ViewModel() {
     private var initialized = false
 
@@ -38,13 +42,14 @@ class AlphaViewModel : ViewModel() {
         //_mood = service.mood.asLiveData()
 
         checkSleepState() // Initialize sleep state
+        startMoodDecay() // Start Mood decline
 
         initialized = true
     }
 
     fun consumeTreat() {
         stepService.consumeTreat()
-        updateMood(1)
+        updateMood(20)
     }
 
     private fun checkSleepState() {
@@ -63,5 +68,14 @@ class AlphaViewModel : ViewModel() {
         val currentMood = _mood.value ?: 0f
         val newMood = (currentMood + delta).coerceIn(0f, 100f)
         _mood.value = newMood
+    }
+
+    private fun startMoodDecay() {
+        viewModelScope.launch {
+            while (true) {
+                delay(1000L) // 1 second
+                updateMood(-1)
+            }
+        }
     }
 }
