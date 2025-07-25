@@ -17,7 +17,8 @@ class AlphaViewModel : ViewModel() {
     private lateinit var _treats: LiveData<Float>
     val treats: LiveData<Float> get() = _treats
 
-    private lateinit var _mood: LiveData<Float>
+    //private lateinit var _mood: LiveData<Float>
+    private val _mood = MutableLiveData<Float>(50f) // Or starting mood value
     val mood: LiveData<Float> get() = _mood
 
     private lateinit var stepService: StepCounterService
@@ -34,7 +35,7 @@ class AlphaViewModel : ViewModel() {
 
         _steps = service.steps.asLiveData()
         _treats = service.treats.asLiveData()
-        _mood = service.mood.asLiveData()
+        //_mood = service.mood.asLiveData()
 
         checkSleepState() // Initialize sleep state
 
@@ -43,6 +44,7 @@ class AlphaViewModel : ViewModel() {
 
     fun consumeTreat() {
         stepService.consumeTreat()
+        updateMood(1)
     }
 
     private fun checkSleepState() {
@@ -55,5 +57,11 @@ class AlphaViewModel : ViewModel() {
         val nightStart = LocalTime.of(21, 0) // 9 PM
         val nightEnd = LocalTime.of(6, 0)    // 6 AM
         _isAsleep.value = now.isAfter(nightStart) || now.isBefore(nightEnd)
+    }
+
+    private fun updateMood(delta: Int) {
+        val currentMood = _mood.value ?: 0f
+        val newMood = (currentMood + delta).coerceIn(0f, 100f)
+        _mood.value = newMood
     }
 }

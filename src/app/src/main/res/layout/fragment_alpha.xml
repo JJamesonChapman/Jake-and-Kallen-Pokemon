@@ -10,46 +10,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Steps"
-        android:textSize="18sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/text_treats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Treats"
-        android:textSize="18sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/text_mood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mood"
-        android:textSize="18sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/button_treat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Give Treat"
-        android:layout_margin="@dimen/activity_horizontal_margin" />
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="Give Treat" />
 
     <TextView
         android:id="@+id/textSleepState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Sleep state"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/imagePokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/pokemon_awake" />
-
-
+        android:src="@drawable/pokemon_happy"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
