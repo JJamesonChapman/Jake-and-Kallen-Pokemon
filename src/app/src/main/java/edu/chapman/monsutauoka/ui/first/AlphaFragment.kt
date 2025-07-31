@@ -24,6 +24,8 @@ class AlphaFragment : Fragment() {
     private var currentMood: Float = 50f
     private var isCurrentlyAsleep: Boolean = false
 
+    private var treatAmount = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,8 +69,25 @@ class AlphaFragment : Fragment() {
         }
 
         binding.buttonTreat.setOnClickListener {
-            viewModel.consumeTreat()
+            repeat(treatAmount) {
+                viewModel.consumeTreat()
+            }
         }
+
+        binding.buttonDecreaseTreats.setOnClickListener {
+            if (treatAmount > 1) {
+                treatAmount--
+                binding.textTreatAmount.text = treatAmount.toString()
+            }
+        }
+
+        binding.buttonIncreaseTreats.setOnClickListener {
+            if (treatAmount < 10) {
+                treatAmount++
+                binding.textTreatAmount.text = treatAmount.toString()
+            }
+        }
+
     }
 
     private fun updatePokemonImage() {
