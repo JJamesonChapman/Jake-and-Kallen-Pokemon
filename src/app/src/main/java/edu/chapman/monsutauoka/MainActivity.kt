@@ -78,6 +78,14 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         stepSensorManager.onPause()
+
+        val t = System.currentTimeMillis() + 5*60*1000 // 5 minutes
+        ReminderScheduler.scheduleExactAt(
+            context = this,
+            triggerAtMillis = t,
+            title = "Come back!",
+            message = "Your legally distinct pocket entity misses you!",
+        )
     }
 
     fun updateSteps(newStepCount: Float) {

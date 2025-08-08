@@ -30,7 +30,7 @@ class EntryActivity : AppCompatActivity() {
             } else {
                 ActivityCompat.requestPermissions(
                     this,
-                    arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                    arrayOf(Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.POST_NOTIFICATIONS),
                     0
                 )
             }
@@ -39,12 +39,17 @@ class EntryActivity : AppCompatActivity() {
 
     val hasPermission : Boolean
         get() {
-            val isPermissionGranted = ContextCompat.checkSelfPermission(
+            val activityPermissionGranted = ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACTIVITY_RECOGNITION
             )
 
-            return isPermissionGranted == PackageManager.PERMISSION_GRANTED
+            val notificationPermissionGranted = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+
+            return (activityPermissionGranted == PackageManager.PERMISSION_GRANTED && notificationPermissionGranted == PackageManager.PERMISSION_GRANTED)
         }
 
     fun goToMainActivity() {
