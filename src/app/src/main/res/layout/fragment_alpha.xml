@@ -1,84 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/text_steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Steps"
-        android:textAlignment="center"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/text_treats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Treats"
-        android:textAlignment="center"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/text_mood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mood"
-        android:textAlignment="center"
-        android:textSize="18sp" />
-
-    <LinearLayout
-        android:id="@+id/treatAmountSelector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="12dp">
-
-        <Button
-            android:id="@+id/buttonDecreaseTreats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="←" />
-
-        <TextView
-            android:id="@+id/textTreatAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:layout_marginHorizontal="12dp"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/buttonIncreaseTreats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="→" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_treat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Give Treat" />
-
-
-    <TextView
-        android:id="@+id/textSleepState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Sleep state"
-        android:textSize="18sp" />
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/imagePokemon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@drawable/pokemon_awake" />
+
+    <TextView
+        android:id="@+id/textSleepState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/imagePokemon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Your Pokémon is awake!" />
+
+    <TextView
+        android:id="@+id/textSteps"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textSleepState"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Steps / 100: 42" />
+
+    <TextView
+        android:id="@+id/textTreats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textSteps"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Treats: 3" />
+
+    <TextView
+        android:id="@+id/textMood"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textTreats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Mood: 50" />
+
+    <Button
+        android:id="@+id/buttonDecreaseTreats"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="−"
+        app:layout_constraintTop_toBottomOf="@id/textMood"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/textTreatAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/pokemon_happy"
-        android:layout_gravity="center_horizontal" />
+        android:paddingHorizontal="12dp"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="@id/buttonDecreaseTreats"
+        app:layout_constraintBottom_toBottomOf="@id/buttonDecreaseTreats"
+        app:layout_constraintStart_toEndOf="@id/buttonDecreaseTreats"
+        app:layout_constraintEnd_toStartOf="@id/buttonIncreaseTreats"
+        tools:text="1" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/buttonIncreaseTreats"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="+"
+        app:layout_constraintTop_toTopOf="@id/buttonDecreaseTreats"
+        app:layout_constraintBottom_toBottomOf="@id/buttonDecreaseTreats"
+        app:layout_constraintStart_toEndOf="@id/textTreatAmount" />
+
+    <Button
+        android:id="@+id/buttonTreat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Feed treats"
+        app:layout_constraintTop_toBottomOf="@id/buttonIncreaseTreats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

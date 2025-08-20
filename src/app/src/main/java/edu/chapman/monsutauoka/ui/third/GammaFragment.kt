@@ -1,53 +1,113 @@
 package edu.chapman.monsutauoka.ui.third
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import edu.chapman.monsutauoka.databinding.FragmentGammaBinding
-import edu.chapman.monsutauoka.extensions.TAG
+import edu.chapman.monsutauoka.ui.first.AlphaViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GammaFragment : Fragment() {
 
     private var _binding: FragmentGammaBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: GammaViewModel by viewModels()
+    // Use the activity-scoped VM so rewards flow through the same service/state
+    private val sharedVm: AlphaViewModel by activityViewModels()
+
+    private var tapCount = 0
+    private var gameJob: Job? = null
+    private var running = false
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        Log.d(TAG, ::onCreateView.name)
-
         _binding = FragmentGammaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, ::onViewCreated.name)
+        // Round config
+        val targetTaps = 5
+        val roundMs = 5_000L
 
-        binding.buttonDecrement.setOnClickListener {
-            viewModel.num.value--
+        binding.buttonGameStart.setOnClickListener {
+            if (running) return@setOnClickListener
+            running = true
+            tapCount = 0
+            binding.textGameStatus.text = "Tap ${targetTaps} times in ${roundMs/1000}s!"
+            binding.textGameTaps.text = "Taps: 0/$targetTaps"
+            binding.buttonGameTap.isEnabled = true
+            binding.buttonGameStart.isEnabled = false
+
+            gameJob?.cancel()
+            gameJob = viewLifecycleOwner.lifecycleScope.launch {
+                delay(roundMs)
+                endRound(targetTaps)
+            }
         }
 
-        binding.buttonIncrement.setOnClickListener {
-            viewModel.num.value++
+        binding.buttonGameTap.setOnClickListener {
+            if (!running) return@setOnClickListener
+            tapCount++
+            binding.textGameTaps.text = "Taps: $tapCount/$targetTaps"
+            // Optional: instant win if they reach target early
+            if (tapCount >= targetTaps) {
+                gameJob?.cancel()
+                endRound(targetTaps)
+            }
         }
 
-        viewModel.num.observe(viewLifecycleOwner) { numValue ->
-            binding.textGamma.text = numValue.toString()
+        binding.buttonGameStart.setOnClickListener {
+            if (running) return@setOnClickListener
+            running = true
+            tapCount = 0
+            binding.textGameStatus.text = "Tap ${targetTaps} times in ${roundMs/1000}s!"
+            binding.textGameTaps.text = "Taps: 0/$targetTaps"   // <— show starting count
+            binding.buttonGameTap.isEnabled = true
+            binding.buttonGameStart.isEnabled = false
+
+            gameJob?.cancel()
+            gameJob = viewLifecycleOwner.lifecycleScope.launch {
+                delay(roundMs)
+                endRound(targetTaps)
+            }
+        }
+
+        binding.buttonGameTap.setOnClickListener {
+            if (!running) return@setOnClickListener
+            tapCount++
+            binding.textGameTaps.text = "Taps: $tapCount/$targetTaps" // <— live update
+            if (tapCount >= targetTaps) {
+                gameJob?.cancel()
+                endRound(targetTaps)
+            }
         }
     }
 
-    override fun onDestroyView() {
-        Log.d(TAG, ::onDestroyView.name)
+    private fun endRound(targetTaps: Int) {
+        binding.buttonGameTap.isEnabled = false
+        binding.buttonGameStart.isEnabled = true
 
-        super.onDestroyView()
+        val won = tapCount >= targetTaps
+        if (won) {
+            sharedVm.awardTreats(1) // MVVM-friendly: award via VM/service
+            binding.textGameStatus.text = "You win! +1 Treat 🎉"
+        } else {
+            binding.textGameStatus.text = "Try again!"
+        }
+        running = false
+    }
+
+    override fun onDestroyView() {
+        gameJob?.cancel()
         _binding = null
+        super.onDestroyView()
     }
 }

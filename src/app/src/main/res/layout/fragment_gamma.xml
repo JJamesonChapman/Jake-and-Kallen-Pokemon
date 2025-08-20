@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/buttonGameStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Start Round"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGameTap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TAP!"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/buttonGameStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/text_gamma"
-        android:layout_width="wrap_content"
+        android:id="@+id/textGameStatus"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/_0"
-        android:textSize="24sp" />
+        app:layout_constraintTop_toBottomOf="@id/buttonGameTap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Tap 5 times in 5s!" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <!-- NEW: live tap counter -->
+    <TextView
+        android:id="@+id/textGameTaps"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@id/textGameStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Taps: 0/5" />
 
-        <Button
-            android:id="@+id/button_decrement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/decrement"
-            android:layout_margin="@dimen/activity_horizontal_margin" />
-
-        <Button
-            android:id="@+id/button_increment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/increment"
-            android:layout_margin="@dimen/activity_horizontal_margin" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
