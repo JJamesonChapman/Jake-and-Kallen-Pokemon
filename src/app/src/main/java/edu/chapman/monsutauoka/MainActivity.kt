@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         stepSensorManager.onPause()
 
-        val t = System.currentTimeMillis() + 5*60*1000 // 5 minutes
+        val t = System.currentTimeMillis() + 1*20*1000 // 20 seconds
         ReminderScheduler.scheduleExactAt(
             context = this,
             triggerAtMillis = t,

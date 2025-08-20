@@ -12,6 +12,9 @@ import edu.chapman.monsutauoka.ui.first.AlphaViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.random.Random
+import kotlin.math.ceil
+
 
 class GammaFragment : Fragment() {
 
@@ -34,38 +37,13 @@ class GammaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Round config
-        val targetTaps = 5
+        var targetTaps = 100
         val roundMs = 5_000L
 
-        binding.buttonGameStart.setOnClickListener {
-            if (running) return@setOnClickListener
-            running = true
-            tapCount = 0
-            binding.textGameStatus.text = "Tap ${targetTaps} times in ${roundMs/1000}s!"
-            binding.textGameTaps.text = "Taps: 0/$targetTaps"
-            binding.buttonGameTap.isEnabled = true
-            binding.buttonGameStart.isEnabled = false
-
-            gameJob?.cancel()
-            gameJob = viewLifecycleOwner.lifecycleScope.launch {
-                delay(roundMs)
-                endRound(targetTaps)
-            }
-        }
-
-        binding.buttonGameTap.setOnClickListener {
-            if (!running) return@setOnClickListener
-            tapCount++
-            binding.textGameTaps.text = "Taps: $tapCount/$targetTaps"
-            // Optional: instant win if they reach target early
-            if (tapCount >= targetTaps) {
-                gameJob?.cancel()
-                endRound(targetTaps)
-            }
-        }
 
         binding.buttonGameStart.setOnClickListener {
             if (running) return@setOnClickListener
+            targetTaps = Random.nextInt(1, 30)
             running = true
             tapCount = 0
             binding.textGameStatus.text = "Tap ${targetTaps} times in ${roundMs/1000}s!"
@@ -97,8 +75,9 @@ class GammaFragment : Fragment() {
 
         val won = tapCount >= targetTaps
         if (won) {
-            sharedVm.awardTreats(1) // MVVM-friendly: award via VM/service
-            binding.textGameStatus.text = "You win! +1 Treat 🎉"
+            val awarded = ceil(targetTaps.toDouble() / 8).toInt()
+            sharedVm.awardTreats(awarded) // MVVM-friendly: award via VM/service
+            binding.textGameStatus.text = "You win! +" + awarded.toString() + " Treats 🎉"
         } else {
             binding.textGameStatus.text = "Try again!"
         }

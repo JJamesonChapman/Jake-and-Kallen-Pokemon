@@ -7,25 +7,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/buttonGameStart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Start Round"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonGameTap"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TAP!"
-        android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@id/buttonGameStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
         android:id="@+id/textGameStatus"
         android:layout_width="0dp"
@@ -44,5 +25,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Taps: 0/5" />
+
+    <Button
+        android:id="@+id/buttonGameStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:text="Start Round"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGameTap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TAP!"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/buttonGameStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

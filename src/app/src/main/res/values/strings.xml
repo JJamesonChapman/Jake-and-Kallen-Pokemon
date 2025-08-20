@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Monsutau Oka</string>
-    <string name="title_first">Alpha</string>
-    <string name="title_second">Beta</string>
-    <string name="title_third">Gamma</string>
+    <string name="title_first">Mood</string>
+    <string name="title_second">Feed</string>
+    <string name="title_third">Earn</string>
     <string name="_true">True</string>
     <string name="_false">False</string>
     <string name="decrement">Decrement</string>

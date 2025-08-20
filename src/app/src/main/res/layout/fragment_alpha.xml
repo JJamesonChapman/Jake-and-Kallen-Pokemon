@@ -10,12 +10,14 @@
 
     <ImageView
         android:id="@+id/imagePokemon"
-        android:layout_width="200dp"
+        android:layout_width="400dp"
         android:layout_height="200dp"
+        android:layout_marginTop="204dp"
         android:contentDescription="@string/app_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/pokemon_awake" />
 
     <TextView
@@ -23,7 +25,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/imagePokemon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,68 +36,38 @@
     <TextView
         android:id="@+id/textSteps"
         android:layout_width="0dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textSleepState"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textAlignment="center"
         tools:text="Steps / 100: 42" />
 
     <TextView
         android:id="@+id/textTreats"
+        android:textSize="18sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textSteps"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textAlignment="center"
         tools:text="Treats: 3" />
 
     <TextView
         android:id="@+id/textMood"
+        android:textSize="18sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textTreats"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textAlignment="center"
         tools:text="Mood: 50" />
-
-    <Button
-        android:id="@+id/buttonDecreaseTreats"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:text="−"
-        app:layout_constraintTop_toBottomOf="@id/textMood"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/textTreatAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@id/buttonDecreaseTreats"
-        app:layout_constraintBottom_toBottomOf="@id/buttonDecreaseTreats"
-        app:layout_constraintStart_toEndOf="@id/buttonDecreaseTreats"
-        app:layout_constraintEnd_toStartOf="@id/buttonIncreaseTreats"
-        tools:text="1" />
-
-    <Button
-        android:id="@+id/buttonIncreaseTreats"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:text="+"
-        app:layout_constraintTop_toTopOf="@id/buttonDecreaseTreats"
-        app:layout_constraintBottom_toBottomOf="@id/buttonDecreaseTreats"
-        app:layout_constraintStart_toEndOf="@id/textTreatAmount" />
-
-    <Button
-        android:id="@+id/buttonTreat"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Feed treats"
-        app:layout_constraintTop_toBottomOf="@id/buttonIncreaseTreats"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

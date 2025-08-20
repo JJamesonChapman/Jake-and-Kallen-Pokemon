@@ -82,24 +82,6 @@ class AlphaFragment : Fragment() {
             }
             render()
         }
-
-        binding.buttonTreat.setOnClickListener {
-            viewModel.consumeManyTreats(treatAmount)
-        }
-
-        binding.buttonDecreaseTreats.setOnClickListener {
-            if (treatAmount > 1) {
-                treatAmount--
-                binding.textTreatAmount.text = treatAmount.toString()
-            }
-        }
-
-        binding.buttonIncreaseTreats.setOnClickListener {
-            if (treatAmount < 10) {
-                treatAmount++
-                binding.textTreatAmount.text = treatAmount.toString()
-            }
-        }
     }
 
     private fun render() {
